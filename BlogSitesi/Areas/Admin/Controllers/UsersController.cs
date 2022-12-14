@@ -48,7 +48,7 @@ namespace BlogSitesi.Areas.Admin.Controllers
         // GET: UsersController/Edit/5
         public ActionResult Edit(int id)
         {
-            var user = context.Users.Find(id);
+            var user = context.Users.Find(id); // Edit sayfası bizden model olarak içi dolu bir kullanıcı bekliyor
             return View(user);
         }
 
@@ -73,7 +73,8 @@ namespace BlogSitesi.Areas.Admin.Controllers
         // GET: UsersController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var user = context.Users.Find(id);
+            return View(user);
         }
 
         // POST: UsersController/Delete/5
