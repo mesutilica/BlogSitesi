@@ -80,10 +80,12 @@ namespace BlogSitesi.Areas.Admin.Controllers
         // POST: UsersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, User user)
         {
             try
             {
+                context.Users.Remove(user);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
