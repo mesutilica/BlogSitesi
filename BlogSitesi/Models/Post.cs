@@ -9,8 +9,8 @@ namespace BlogSitesi.Models
         public string Name { get; set; }
         [Display(Name = "İçerik Açıklaması")]
         public string? Description { get; set; }
-        [Display(Name = "Eklenme Tarihi")]
-        public DateTime CreateDate { get; set; }
+        [Display(Name = "Eklenme Tarihi"), ScaffoldColumn(false)]
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         [StringLength(150), Display(Name = "İçerik Resmi")]
         public string? Image { get; set; }
         [Display(Name = "Kategori")]

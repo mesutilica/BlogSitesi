@@ -13,8 +13,8 @@ namespace BlogSitesi.Models
         public string Email { get; set; }
         [Display(Name = "Şifre"), StringLength(50)]
         public string Password { get; set; }
-        [Display(Name = "Eklenme Tarihi")]
-        public DateTime CreateDate { get; set; }
+        [Display(Name = "Eklenme Tarihi"), ScaffoldColumn(false)]
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         [Display(Name = "Durum")]
         public bool IsActive { get; set; } // kullanıcıyı aktif veya pasif etmek için
         [Display(Name = "Admin")]
