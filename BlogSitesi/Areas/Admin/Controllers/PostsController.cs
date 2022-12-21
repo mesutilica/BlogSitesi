@@ -53,14 +53,19 @@ namespace BlogSitesi.Areas.Admin.Controllers
         }
 
         // POST: Admin/Posts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Image,CategoryId")] Post post)
+        public async Task<IActionResult> Create(Post post, IFormFile? Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image is not null)
+                {
+                    string klasor = Directory.GetCurrentDirectory() + "/wwwroot/Img/" + Image.FileName;
+                    using var stream = new FileStream(klasor, FileMode.Create); // Idisposable - GC
+                    Image.CopyTo(stream);
+                    post.Image = Image.FileName;
+                }
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,7 +94,7 @@ namespace BlogSitesi.Areas.Admin.Controllers
         // POST: Admin/Posts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Image,CategoryId")] Post post)
+        public async Task<IActionResult> Edit(int id, Post post, IFormFile? Image)
         {
             if (id != post.Id)
             {
@@ -100,6 +105,13 @@ namespace BlogSitesi.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (Image is not null)
+                    {
+                        string klasor = Directory.GetCurrentDirectory() + "/wwwroot/Img/" + Image.FileName;
+                        using var stream = new FileStream(klasor, FileMode.Create); // Idisposable - GC
+                        Image.CopyTo(stream);
+                        post.Image = Image.FileName;
+                    }
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }

@@ -1,4 +1,5 @@
 using BlogSitesi.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>(); // veritabaný tablolarýmýzý temsil eden entity framework classý
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login";
+    x.Cookie.Name = "AdminLogin";
+});
 
 var app = builder.Build();
 
@@ -22,7 +29,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // admin login için ekliyoruz.
+app.UseAuthorization(); // kullanýcý yetkilendirme
 
 app.MapControllerRoute(
             name: "admin",
