@@ -10,7 +10,7 @@ builder.Services.AddDbContext<DatabaseContext>(); // veritabaný tablolarýmýzý te
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
-    x.LoginPath = "/Admin/Login";
+    x.LoginPath = "/Admin/Login"; // admin controller da authorize eklediðimizde giriþ yapmayan kullanýcýlarý admin/login sayfasýna yönlendrir.
     x.Cookie.Name = "AdminLogin";
 });
 

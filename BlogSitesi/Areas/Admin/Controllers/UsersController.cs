@@ -1,10 +1,10 @@
 ﻿using BlogSitesi.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSitesi.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class UsersController : Controller
     {
         DatabaseContext context = new DatabaseContext(); // veritabanındaki users tablosuna ulaşmak için DatabaseContext sınıfından context isminde bir nesne oluşturduk.
